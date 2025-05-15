@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Prodavnica majica</title>
+
+  <style>
+    body { font-family: Arial; background: #f2f2f2; padding: 20px; }
+    .product { border: 1px solid #ccc; background: #fff; padding: 10px; margin: 10px; width: 200px; float: left; }
+    .product img { width: 100%; }
+    .cart { clear: both; margin-top: 30px; background: #fff; padding: 20px; border: 1px solid #ccc; }
+    button { padding: 5px 10px; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Majice</h1>
+  <div id="products"></div>
+  <div class="cart">
+    <h2>Korpa</h2>
+    <ul id="cart-list"></ul>
+    <p><strong>Ukupno: <span id="total">0</span> €</strong></p>
+    <button onclick="pay()">Plati putem PayPal-a</button>
+  </div>
+
+  <script>
+    const products = [
+      { name: "Loui Vuiton", price: 35, color: "Crna", image: "https://i.imgur.com/ceF99z8.jpeg" },
+      { name: "Fendi", price: 30, color: "Bijela", image: "https://i.imgur.com/A2A2Z2e.jpeg" },
+      { name: "Off White", price: 50, color: "Crna", image: "https://i.imgur.com/Jr40FwJ.jpeg" },
+      { name: "Burbery", price: 30, color: "Bijela", image: "https://i.imgur.com/FjoKss9.jpeg" },
+      { name: "Dior", price: 40, color: "Crna", image: "https://i.imgur.com/NL8renK.jpeg" }
+    ];
+
+    const cart = [];
+
+    const productsDiv = document.getElementById("products");
+    const cartList = document.getElementById("cart-list");
+    const totalSpan = document.getElementById("total");
+
+    products.forEach((p, index) => {
+      const div = document.createElement("div");
+      div.className = "product";
+      div.innerHTML = `
+        <img src="${p.image}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>Boja: ${p.color}</p>
+        <p>Cijena: ${p.price} €</p>
+        <button onclick="addToCart(${index})">Dodaj u korpu</button>
+      `;
+      productsDiv.appendChild(div);
+    });
+
+    function addToCart(index) {
+      const product = products[index];
+      cart.push(product);
+      updateCart();
+    }
+
+    function updateCart() {
+      cartList.innerHTML = "";
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - ${item.price} €`;
+        cartList.appendChild(li);
+        total += item.price;
+      });
+      totalSpan.textContent = total;
+    }
+
+    function pay() {
+      alert("Plaćanje putem PayPala uskoro dostupno!");
+    }
+  </script>
+</body>
+</html
